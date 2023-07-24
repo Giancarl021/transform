@@ -7,7 +7,8 @@ import { jest } from '@jest/globals';
 const emptyTransformer = (_: any) => null;
 const numberToStringTransformer = (n: number) => String(n);
 const numberToStringArrayTransformer = (array: number[]) => array.map(String);
-const delayedNumberToStringTransfomer = (n: number) =>new Promise(r => setTimeout(() => r(String(n)), 200));
+const delayedNumberToStringTransfomer = (n: number) =>
+    new Promise(r => setTimeout(() => r(String(n)), 200));
 
 const loggerSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
 
@@ -23,7 +24,7 @@ const mark = () => {
         end() {
             return Date.now() - start;
         }
-    }
+    };
 };
 
 describe('Base service checks', () => {
@@ -45,7 +46,7 @@ describe('Base service checks', () => {
         expect(transformer).toHaveProperty('transformSingle');
         expect(transformer).toHaveProperty('transformLinearly');
         expect(transformer).toHaveProperty('transformParallel');
-    })
+    });
 });
 
 describe('TransformerSync functionality', () => {
@@ -56,20 +57,34 @@ describe('TransformerSync functionality', () => {
 
         const transformer2 = TransformerSync(numberToStringArrayTransformer);
 
-        expect(transformer2.transformSingle([1, 2, 3])).toEqual(['1', '2', '3']);
+        expect(transformer2.transformSingle([1, 2, 3])).toEqual([
+            '1',
+            '2',
+            '3'
+        ]);
         expect(transformer2.transformSingle([])).toEqual([]);
     });
 
     test('`transformLinearly` functionality', () => {
         const transformer1 = TransformerSync(numberToStringTransformer);
 
-        expect(transformer1.transformLinearly([1, 2, 3])).toEqual(['1', '2', '3']);
+        expect(transformer1.transformLinearly([1, 2, 3])).toEqual([
+            '1',
+            '2',
+            '3'
+        ]);
         expect(transformer1.transformLinearly([10])).toEqual(['10']);
 
         const transformer2 = TransformerSync(numberToStringArrayTransformer);
 
-        expect(transformer2.transformLinearly([[1], [2], [3]])).toEqual([['1'], ['2'], ['3']]);
-        expect(transformer2.transformLinearly([[1, 2, 3]])).toEqual([['1', '2', '3']]);
+        expect(transformer2.transformLinearly([[1], [2], [3]])).toEqual([
+            ['1'],
+            ['2'],
+            ['3']
+        ]);
+        expect(transformer2.transformLinearly([[1, 2, 3]])).toEqual([
+            ['1', '2', '3']
+        ]);
     });
 });
 
@@ -81,26 +96,44 @@ describe('TransformerAsync functionality', () => {
 
         const transformer2 = TransformerAsync(numberToStringArrayTransformer);
 
-        expect(await transformer2.transformSingle([1, 2, 3])).toEqual(['1', '2', '3']);
+        expect(await transformer2.transformSingle([1, 2, 3])).toEqual([
+            '1',
+            '2',
+            '3'
+        ]);
         expect(await transformer2.transformSingle([])).toEqual([]);
     });
 
     test('`transformLinearly` functionality', async () => {
         const transformer1 = TransformerAsync(numberToStringTransformer);
 
-        expect(await transformer1.transformLinearly([1, 2, 3])).toEqual(['1', '2', '3']);
+        expect(await transformer1.transformLinearly([1, 2, 3])).toEqual([
+            '1',
+            '2',
+            '3'
+        ]);
         expect(await transformer1.transformLinearly([10])).toEqual(['10']);
 
         const transformer2 = TransformerAsync(numberToStringArrayTransformer);
 
-        expect(await transformer2.transformLinearly([[1], [2], [3]])).toEqual([['1'], ['2'], ['3']]);
-        expect(await transformer2.transformLinearly([[1, 2, 3]])).toEqual([['1', '2', '3']]);
+        expect(await transformer2.transformLinearly([[1], [2], [3]])).toEqual([
+            ['1'],
+            ['2'],
+            ['3']
+        ]);
+        expect(await transformer2.transformLinearly([[1, 2, 3]])).toEqual([
+            ['1', '2', '3']
+        ]);
 
         const transformer3 = TransformerAsync(delayedNumberToStringTransfomer);
 
         const linearMarker = mark();
 
-        expect(await transformer3.transformLinearly([1, 2, 3])).toEqual(['1', '2', '3']);
+        expect(await transformer3.transformLinearly([1, 2, 3])).toEqual([
+            '1',
+            '2',
+            '3'
+        ]);
 
         expect(linearMarker.end()).toBeGreaterThanOrEqual(600);
     });
@@ -112,13 +145,17 @@ describe('TransformerAsync functionality', () => {
 
         const noLimitsMarker = mark();
 
-        expect(await transformer.transformParallel(input)).toEqual(expectedOutput);
+        expect(await transformer.transformParallel(input)).toEqual(
+            expectedOutput
+        );
 
         expect(noLimitsMarker.end()).toBeGreaterThanOrEqual(200);
-        
+
         const halfTimeLimitMarker = mark();
-        
-        expect(await transformer.transformParallel(input, 5)).toEqual(expectedOutput);
+
+        expect(await transformer.transformParallel(input, 5)).toEqual(
+            expectedOutput
+        );
 
         expect(halfTimeLimitMarker.end()).toBeGreaterThanOrEqual(400);
     });

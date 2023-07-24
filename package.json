@@ -1,6 +1,6 @@
 {
     "name": "@giancarl021/transform",
-    "version": "0.1.1",
+    "version": "0.1.0",
     "description": "Simple transformer function with async and sync runners",
     "main": "lib/index.js",
     "files": [

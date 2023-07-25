@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="none"
+    stroke-linecap="round" stroke-linejoin="round">
+    <defs>
+        <linearGradient id="transformedBox" x1="0%" x2="100%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#ff77ff" />
+            <stop offset="55%" stop-color="#77ff77" />
+            <stop offset="90%" stop-color="#5577ff" />
+        </linearGradient>
+        <linearGradient id="bgBox" x1="0%" x2="100%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#ffff99" />
+            <stop offset="55%" stop-color="#8833ff" />
+            <stop offset="90%" stop-color="#77ff99" />
+        </linearGradient>
+    </defs>
+    <g stroke="white" fill="url(#bgBox)">
+        <rect width="90" height="90" x="5" y="5"/>
+    </g>
+    <g stroke="black">
+        <rect width="20" height="20" x="20" y="40" fill="#ccc"/>
+        <rect width="20" height="20" x="60" y="40" fill="url(#transformedBox)" />
+    </g>
+    <g stroke="black" fill="magenta">
+        <line x1="40" x2="60" y1="50" y2="50" />
+        <polygon points="55,47 60,50 55,53" />
+    </g>
+</svg>

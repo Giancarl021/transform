@@ -1,5 +1,7 @@
 # transformer
 
+![](assets/logo.svg)
+
 Simple transformer function with async and sync runners.
 
 ## Why

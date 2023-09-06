@@ -13,9 +13,12 @@ This package provide a simple abstraction for generic conversions of data in a p
 The package provides two Transformers:
 
 ```typescript
-import Transformer, { TransformerAsync, TransformerSync } from '@giancarl021/transform';
+import Transformer, {
+    TransformerAsync,
+    TransformerSync
+} from '@giancarl021/transform';
 
-console.log(Transformer === TransformerAsync)
+console.log(Transformer === TransformerAsync);
 // true
 ```
 

@@ -84,7 +84,7 @@ export function TransformerAsync<Input, Output>(
 
         loggerFunction(
             `Executing chunk${
-                callbacks.length <= throttle ? '' : chunkCounter
+                callbacks.length > throttle ? ` ${chunkCounter}` : ''
             }...`
         );
 
@@ -157,4 +157,10 @@ export function TransformerSync<Input, Output>(
     };
 }
 
-export default TransformerAsync;
+/**
+ * A Transformer for asynchronous applications, with sequential and parallel transformations.
+ * This transformer allow asynchronous transform functions
+ */
+const Transformer = TransformerAsync;
+
+export default Transformer;
